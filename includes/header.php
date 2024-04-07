@@ -33,6 +33,12 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+        a.unlike, a.like, p.likes {
+            font-size: 22px !important;
+        }
+    </style>
+
 </head>
 
 <body>

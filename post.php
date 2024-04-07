@@ -1,7 +1,41 @@
 <?php include "includes/header.php" ?>
+<!-- Navigation -->
+<?php include "includes/navigation.php"; ?>
 
-    <!-- Navigation -->
-    <?php include "includes/navigation.php"; ?>
+<?php
+    // Liked
+    if(isset($_POST['liked'])) {
+        $post_id = $_POST['post_id'];
+        $user_id = $_POST['user_id'];
+
+        $query = "SELECT * FROM posts WHERE post_id= {$post_id} ";
+        $postResult = mysqli_query($connection, $query);
+        $post = mysqli_fetch_array($postResult);
+        $likes = $post['likes'];
+
+        mysqli_query($connection, "UPDATE posts SET likes=$likes+1 WHERE post_id=$post_id ");
+        
+        mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id) ");
+        exit();
+    }
+    // Unliked
+    if(isset($_POST['unliked'])) {
+        $post_id = $_POST['post_id'];
+        $user_id = $_POST['user_id'];
+
+        $query = "SELECT * FROM posts WHERE post_id= {$post_id} ";
+        $postResult = mysqli_query($connection, $query);
+        $post = mysqli_fetch_array($postResult);
+        $likes = $post['likes'];
+
+        mysqli_query($connection, "DELETE FROM likes WHERE post_id=$post_id && user_id=$user_id ");
+
+        mysqli_query($connection, "UPDATE posts SET likes=$likes-1 WHERE post_id=$post_id ");
+    
+        exit();
+    }
+
+?>
 
     <!-- Page Content -->
     <div class="container">
@@ -30,7 +64,7 @@
                     } else {
                         while($row = mysqli_fetch_assoc($select_all_posts_query)) {
                             $post_title     = $row['post_title'];
-                            $post_author     = $row['post_user'];
+                            $post_author    = $row['post_user'];
                             $post_date      = $row['post_date'];
                             $post_image     = $row['post_image'];
                             $post_content   = $row['post_content'];
@@ -49,6 +83,25 @@
                             <hr>
                             <p><?php echo $post_content ?></p>
                             <hr>
+                            <?php
+                                if(isLoggedIn()) { ?>
+                                    <div class="row">
+                                        <p class="pull-right">
+                                            <a class="<?php echo userLikedThisPost($the_post_id) ? 'unlike' : 'like'; ?>" href="#"><span class="glyphicon glyphicon-thumbs-up" data_toggle="tooltip" data-placement="top" title="<?php echo userLikedThisPost($the_post_id) ? ' I liked this before' : ' Want to like it?'; ?>" ></span><?php echo userLikedThisPost($the_post_id) ? ' Unlike' : ' Like'; ?></a>
+                                        </p>
+                                    </div>
+                                    <?php
+                                } else { ?>
+                                    <div class="row">
+                                        <p class="pull-right">You need to <a href="/cms/login.php">Login</a> to like.</p>
+                                    </div>
+
+                            <?php }
+
+                            ?>
+                            <div class="row">
+                                <p class="pull-right likes">LIKE: <?php getPostLikes($the_post_id); ?></p>
+                            </div>
                         <?php } ?> <!-- while end --> 
                     
                             
@@ -104,9 +157,7 @@
                             $query .= "AND comment_status = 'approved' ";
                             $query .= "ORDER BY comment_id DESC ";  // displaying comment by newest first
                             $select_comment_query = mysqli_query($connection, $query);
-                            if(!$select_comment_query) {
-                                die('Query Failed' . mysqli_error($connection));
-                            }
+                            confirmQuery($select_comment_query);
                             while($row=mysqli_fetch_array($select_comment_query)) {
                                 $comment_date = $row['comment_date'];
                                 $comment_content = $row['comment_content'];
@@ -127,7 +178,7 @@
                 <?php   }
                     } 
                 } else {
-                    header("Location: index.php");
+                    redirect("index.php");
                 }
                 ?>  <!-- while loop end -->
 
@@ -140,3 +191,38 @@
         <hr>
 
 <?php include "includes/footer.php"; ?>
+
+
+<script>
+    $(document).ready(function() {
+        $("[data_toggle='tooltip']").tooltip();
+        var post_id = <?php echo $the_post_id; ?>;
+        var user_id = <?php echo loggedInUserId(); ?>;
+        // Liking
+        $('.like').click(function() {
+            $.ajax({
+                url: "/cms/post.php?p_id=<?php echo $the_post_id; ?>",
+                type: 'post',
+                data: {
+                    'liked': 1,
+                    'post_id': post_id,
+                    'user_id': user_id
+                }
+            });
+            location.reload();
+        });
+        // Unliking
+        $('.unlike').click(function() {
+            $.ajax({
+                url: "/cms/post.php?p_id=<?php echo $the_post_id; ?>",
+                type: 'post',
+                data: {
+                    'unliked': 1,
+                    'post_id': post_id,
+                    'user_id': user_id
+                }
+            });
+            location.reload();
+        });
+    });
+</script>
