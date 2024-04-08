@@ -1,4 +1,7 @@
 <?php
+
+// ========== Database ========== //
+
 function redirect($location) {
     header("Location: " .$location);
     exit;
@@ -6,8 +9,90 @@ function redirect($location) {
 
 function query($query) {
     global $connection;
-    return mysqli_query($connection, $query);
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
 }
+
+function fetchRecords($result) {
+    return mysqli_fetch_array($result);
+}
+
+function count_records($result) {
+    return mysqli_num_rows($result);
+}
+
+function recordCount($table) {
+    $result = query("SELECT * FROM " . $table );
+    return count_records($result);
+}
+
+// ========== Database End ========== //
+
+// ========== General ========== //
+
+function get_user_name() {
+    if(isset($_SESSION['username'])) {
+        return $_SESSION['username'];
+    }
+}
+
+// ========== General End ========== //
+
+// ========== Authentication ========== //
+
+function is_admin() {
+    if(isLoggedIn()) {
+        $result = query("SELECT user_role FROM users WHERE user_id = " . $_SESSION['user_id'] . " ");
+        $row = fetchRecords($result);
+        if($row['user_role'] == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
+
+// ========== Authentication End ========== //
+
+// ========== User Specific ========== //
+
+function get_all_user_posts() {
+    return query("SELECT * FROM posts WHERE user_id=" . loggedInUserId() . " ");
+}
+function get_all_posts_user_comments() {
+    return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE user_id = " . loggedInUserId() . " ");
+}
+
+function get_all_user_categories() {
+    return query("SELECT * FROM categories WHERE user_id=" . loggedInUserId() . " ");
+}
+
+function checkStatus($table, $column, $status) {
+    global $connection;
+    $query = "SELECT * FROM $table WHERE $column = '$status' ";
+    $select_all = mysqli_query($connection, $query);
+    return mysqli_num_rows($select_all);
+}
+
+function get_all_user_published_posts() {
+    return query("SELECT * FROM posts WHERE user_id=" . loggedInUserId() . " AND post_status='published' ");
+}
+
+function get_all_user_draft_posts() {
+    return query("SELECT * FROM posts WHERE user_id=" . loggedInUserId() . " AND post_status='draft' ");
+}
+
+function get_all_user_approved_posts_comments() {
+    return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE user_id = " . loggedInUserId() . " AND comment_status='approved' ");
+}
+
+function get_all_user_unapproved_posts_comments() {
+    return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE user_id = " . loggedInUserId() . " AND comment_status='unapproved' ");
+}
+
+// ========== User Specific End ========== //
 
 function ifItIsMethod($method=null) {
     if($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
@@ -141,19 +226,9 @@ function delete_categories() {
     }
 }
 
-function recordCount($table) {
-    global $connection;
-    $query = "SELECT * FROM " . $table ;
-    $select_all = mysqli_query($connection, $query);
-    return mysqli_num_rows($select_all);
-}
 
-function checkStatus($table, $column, $status) {
-    global $connection;
-    $query = "SELECT * FROM $table WHERE $column = '$status' ";
-    $select_all = mysqli_query($connection, $query);
-    return mysqli_num_rows($select_all);
-}
+
+
 
 function checkUserRole($table, $column, $role) {
     global $connection;
@@ -163,19 +238,7 @@ function checkUserRole($table, $column, $role) {
 
 }
 
-function is_admin($username) {
-    global $connection;
-    $query = "SELECT user_role FROM users WHERE username = '$username' ";
-    $result = mysqli_query($connection, $query);
-    $row = mysqli_fetch_assoc($result);
 
-    if($row['user_role'] == 'admin') {
-        return true;
-    } else {
-        return false;
-    }
-
-}
 
 function username_exits($username) {
     global $connection;
@@ -236,10 +299,11 @@ function login_user($username, $password) {
         $db_user_role       = $row['user_role'];
         if (password_verify($password, $db_user_password)) {
              // Setting/assigning sessions so we can pull it elsewhere
-             $_SESSION['username']   = $db_username;
-             $_SESSION['firstname']  = $db_user_firstname;
-             $_SESSION['lastname']   = $db_user_lastname;
-             $_SESSION['user_role']  = $db_user_role;
+             $_SESSION['user_id']   = $db_user_id;
+             $_SESSION['username']  = $db_username;
+             $_SESSION['firstname'] = $db_user_firstname;
+             $_SESSION['lastname']  = $db_user_lastname;
+             $_SESSION['user_role'] = $db_user_role;
      
              redirect("/cms/admin");
          }else {
