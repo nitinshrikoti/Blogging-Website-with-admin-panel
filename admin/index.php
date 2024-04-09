@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome to Admin                           
+                            Welcome                           
                             <small><?php echo strtoupper(get_user_name()); ?></small>
                         </h1>
                     </div>
@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="./posts.php">
+                            <a href="./posts.php?source=user_posts">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="comments.php">
+                            <a href="comments.php?source=user_comments">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -112,7 +112,7 @@
                     
                 ?>
 
-
+                <!-- Pictorial representaton of data -->
                 <div class="row">
                     <script type="text/javascript">
                         google.charts.load('current', {'packages':['bar']});
@@ -145,8 +145,6 @@
                     </script>
                     <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>
                 </div>
-
-
             </div>
             <!-- /.container-fluid -->
 

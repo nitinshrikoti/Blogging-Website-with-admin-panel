@@ -30,6 +30,10 @@
                             include "includes/edit_post.php"; 
                             break;
 
+                            case 'user_comments';
+                            include "includes/view_all_user_specific_comments.php";
+                            break;
+
                             default:
                             include "includes/view_all_comments.php"; 
                         }

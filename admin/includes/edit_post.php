@@ -25,6 +25,7 @@ while($row = mysqli_fetch_assoc($select_posts_by_id)) {
 if(isset($_POST['update_post'])) {
     $post_title         = $_POST['post_title'];
     $post_user          = $_POST['post_user'];
+    $user_id            = get_user_id();
     $post_category_id   = $_POST['post_category'];
     $post_status        = $_POST['post_status'];
     $post_image         = $_FILES['image']['name'];
@@ -45,7 +46,8 @@ if(isset($_POST['update_post'])) {
     // Update Query
     $query = "UPDATE posts SET ";
     $query .= "post_title       = '{$post_title}', ";
-    $query .= "post_category_id = '{$post_category_id}', ";  
+    $query .= "post_category_id = '{$post_category_id}', ";
+    $query .= "user_id          = '{$user_id}', ";
     $query .= "post_date        = now(), ";
     $query .= "post_user        = '{$post_user}', ";
     $query .= "post_status      = '{$post_status}', ";

@@ -54,18 +54,19 @@ if(ifItIsMethod('post')) {
     <!-- Blog Categories Well -->
     <div class="well">
     <?php
-    $query = "SELECT * FROM categories";
-    $select_categories_sidebar = mysqli_query($connection, $query);
+    
     ?>
         <h4>Blog Categories</h4>
         <div class="row">
             <div class="col-lg-12">
                 <ul class="list-unstyled">
                     <?php
+                    $query = "SELECT * FROM categories";
+                    $select_categories_sidebar = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($select_categories_sidebar)) {
                         $cat_id = $row['cat_id'];
                         $cat_title = $row['cat_title'];
-                        echo "<li> <a href='category.php?category=$cat_id'> {$cat_title} </a> </li>";
+                        echo "<li> <a href='/cms/category.php?category=$cat_id'> {$cat_title} </a> </li>";
                     }
                     ?>
                 </ul>

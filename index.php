@@ -42,7 +42,7 @@
                     ?>
 
                     <?php
-                    $query = "SELECT * from posts LIMIT $page_1, $per_page";
+                    $query = "SELECT * from posts ORDER BY post_id DESC LIMIT $page_1, $per_page ";
                     $select_all_posts_query = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_assoc($select_all_posts_query)) {

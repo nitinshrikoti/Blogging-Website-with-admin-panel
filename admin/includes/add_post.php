@@ -4,6 +4,7 @@
 if(isset($_POST['create_post'])) {
     $post_title         = $_POST['title'];
     $post_user          = $_POST['post_user'];
+    $user_id            = get_user_id();
     $post_category_id   = $_POST['post_category'];
     $post_status        = $_POST['post_status'];
     $post_image         = $_FILES['image']['name'];
@@ -11,12 +12,12 @@ if(isset($_POST['create_post'])) {
     $post_tags          = $_POST['post_tags'];
     $post_content       = $_POST['post_content'];
     $post_date          = date('d-m-y');
-    // $post_comment_count = 4;
 
     move_uploaded_file($post_image_temp, "../images/$post_image");
 
-    $query = "INSERT INTO posts(post_category_id, post_title, post_user, post_date, post_image, post_content, post_tags, post_status) ";
+    $query = "INSERT INTO posts(post_category_id, user_id, post_title, post_user, post_date, post_image, post_content, post_tags, post_status) ";
     $query .= "VALUES({$post_category_id}, ";
+    $query .= "'{$user_id}', ";
     $query .= "'{$post_title}', ";
     $query .= "'{$post_user}', ";
     $query .= "now(), ";
@@ -24,6 +25,7 @@ if(isset($_POST['create_post'])) {
     $query .= "'{$post_content}', ";
     $query .= "'{$post_tags}', ";
     $query .= "'{$post_status}' ) ";
+    
     $create_post_query = mysqli_query($connection, $query);
     confirmQuery($create_post_query);
 
@@ -73,20 +75,20 @@ if(isset($_POST['create_post'])) {
         <label for="">Users</label>
         <select name="post_user" id="">
             <?php
-            $query = "SELECT * FROM users ";
-            $select_users = mysqli_query($connection, $query);
-
-            confirmQuery($select_users);
-
-            while($row = mysqli_fetch_assoc($select_users)) {
-                $user_id = $row['user_id'];
-                $username = $row['username'];
-                echo "<option value='{$username}'>{$username}</option>";
+            $get_user_query = get_user_name();
+            echo "<option value='{$get_user_query}'>{$get_user_query}</option>";
+            if(is_admin()) {
+                $select_users = query("SELECT * FROM users ");
+                while($row = mysqli_fetch_assoc($select_users)) {
+                    $user_id = $row['user_id'];
+                    $username = $row['username'];
+                    echo "<option value='{$username}'>{$username}</option>";
+                }
             }
             ?>
         </select>
     </div>
-    
+
     <div class="form-group">
         <label for="post_image">Post Image</label>
         <input type="file" name="image" id="" class="form-control">

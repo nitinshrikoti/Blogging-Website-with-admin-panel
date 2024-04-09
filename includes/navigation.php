@@ -46,7 +46,7 @@
                 }
 
                 echo "<li class='$registration_class'> <a href='/cms/registration'>Registration</a> </li>";
-                echo "<li class='$contact_class'> <a href='/cms/contact'>Contact</a> </li>";
+                // echo "<li class='$contact_class'> <a href='/cms/contact'>Contact</a> </li>";
                 ?>
                 <!-- <li> <a href="/cms/login">Login</a> </li> -->
 
