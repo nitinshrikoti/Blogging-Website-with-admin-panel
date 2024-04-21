@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row">
             <!-- Blog Entries Column -->
-            <div class="col-md-8">
+            <div class="col-md-8 bgcolor">
 
                 <?php
                 if(isset($_GET['p_id'])) {

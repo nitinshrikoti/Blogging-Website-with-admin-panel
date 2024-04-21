@@ -26,17 +26,55 @@
     
     <link href="/cms/css/styles.css" rel="stylesheet">
     
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+13px&display=swap" rel="stylesheet">
 
     <style>
+        *{
+            color: #31363F;
+        }
+
+        .bgcolor {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        body {
+            padding-top: 4px;
+            background-color: #DDDDDD;
+            
+        }
+
         a.unlike, a.like, p.likes {
             font-size: 22px !important;
         }
+
+        h1, h2, h3, h4 {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: italic;
+            
+        }
+
+        p {
+            font-family: "Slabo 13px", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        hr {
+            border-top: 1px solid #C7C8CC;
+        }
+        
+        ul.scroll{
+            width: 65rem;
+        }
+
     </style>
 
 </head>

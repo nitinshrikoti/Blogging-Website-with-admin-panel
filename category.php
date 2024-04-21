@@ -7,7 +7,7 @@
 
         <div class="row">
             <!-- Blog Entries Column -->
-            <div class="col-md-8">
+            <div class="col-md-8 bgcolor">
 
                 <?php
                 if(isset($_GET['category'])) {
@@ -34,19 +34,19 @@
                 ?>    
                             <!-- First Blog Post -->
                             <h2>
-                                <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
+                                <a href="/cms/post/<?php echo $post_id; ?>"><?php echo $post_title ?></a>
                             </h2>
                             <p class="lead">
-                                by <a href=""><?php echo $post_author ?></a>
+                                by <?php echo $post_author ?>
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?></p>
                             <hr>
                             <img class="img-responsive" src="/cms/images/<?php echo $post_image; ?>" alt="">
                             <hr>
                             <p><?php echo $post_content ?></p>
-                            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a class="btn btn-primary" href="/cms/post/<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
     
-                            <hr>
+                            <hr style="border-top: 2px solid #31363F;">
                 <?php } // while loop end
                     } 
                 }else {

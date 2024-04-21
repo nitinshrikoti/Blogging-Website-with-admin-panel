@@ -1,3 +1,12 @@
 .pager li .active_link {
     background-color: #000 !important;
 }
+
+
+
+.f_serif {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+}
