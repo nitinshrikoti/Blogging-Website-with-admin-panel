@@ -13,7 +13,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin Dashboard                         
-                            <small><?php echo strtoupper(get_user_name());?></small>
+                            <!-- <small><?php echo strtoupper(get_user_name());?></small> -->
                         </h1>
                     </div>
                 </div>

@@ -33,6 +33,10 @@
                             case "user_posts";
                             include "includes/view_all_user_specific_posts.php";
                             break;
+                            
+                            case "new_posts";
+                            include "includes/new_posts.php";
+                            break;
 
                             default:
                                 include "includes/view_all_posts.php"; 

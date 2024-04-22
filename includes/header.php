@@ -75,6 +75,10 @@
             width: 65rem;
         }
 
+        .like {
+            padding-right: 14px;
+        }
+
     </style>
 
 </head>

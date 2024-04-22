@@ -38,8 +38,10 @@ if(isset($_POST['checkBoxArray'])) {
                 }
                 $query = "INSERT INTO posts(post_category_id, user_id, post_title, post_author, post_user, post_date, post_image, post_content, post_tags, post_status) ";
                 $query .= "VALUE({$post_category_id}, '{$user_id}', '{$post_title}', '{$post_author}', '{$post_user}', now(), '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_status}') ";
-                $copy_query = query( $query );
-                
+                $copy_query = mysqli_query($connection, $query);
+                if(!$copy_query) {
+                    die("QUERY FAILED" . mysqli_error($connection));
+                }
             break;
         }
     }
@@ -74,7 +76,7 @@ if(isset($_POST['checkBoxArray'])) {
                 <td>Comments</td>
                 <td>Date</td>
                 <td>View Post</td>
-                <td>Edit</td>
+                <!-- <td>Edit</td> -->
                 <td>Delete</td>
                 <td>Post View Count</td>
             </tr>
@@ -82,9 +84,9 @@ if(isset($_POST['checkBoxArray'])) {
         <tbody>
         
         <?php
-
-        $select_posts = query("SELECT * FROM posts WHERE user_id=" . loggedInUserId() . " ");
         
+        // $select_posts = query("SELECT * FROM posts ORDER BY post_id DESC ");
+        $select_posts = query("SELECT * FROM posts WHERE post_status='draft' ");
         while($row = mysqli_fetch_assoc($select_posts)) {
             $post_id            = $row['post_id'];
             $post_title         = $row['post_title'];
@@ -123,8 +125,8 @@ if(isset($_POST['checkBoxArray'])) {
                 echo "<td><a href='post_comments.php?id=$post_id'>$count_comments</a> </td>";
                 
                 echo "<td> $post_date </td>";
-                echo "<td> <a class='btn btn-primary' href='../post.php?source=user_posts&p_id={$post_id}'>View Post</a> </td>";
-                echo "<td> <a class='btn btn-info' href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a> </td>";
+                echo "<td> <a class='btn btn-primary' href='../post.php?p_id={$post_id}'>View Post</a> </td>";
+                // echo "<td> <a class='btn btn-info' href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a> </td>";
 
             ?>
             <form action="" method="post">
@@ -135,7 +137,7 @@ if(isset($_POST['checkBoxArray'])) {
             </form>
             <?php
                 // echo "<td> <a rel='$post_id' href='javascript:void(0)' class='delete_link'>Delete</a> </td>"; 
-                echo "<td> <a href='posts.php?source=user_posts&reset={$post_id}'>{$post_views_count}</a> </td>";
+                echo "<td> <a href='posts.php?reset={$post_id}'>{$post_views_count}</a> </td>";
                 echo "</tr>";
         }   
             ?>
@@ -145,19 +147,21 @@ if(isset($_POST['checkBoxArray'])) {
 
 <?php
 if(isset($_POST['delete'])) {
-
+    if(isset($_SESSION['user_role'])) {
+        if($_SESSION['user_role'] == 'admin') {
             $the_post_id = escape($_POST['post_id']);
             $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
             $delete_query = mysqli_query($connection, $query);
-            redirect("posts.php?source=user_posts");
-    
+            redirect("posts.php?source=new_posts");
+        }
+    }
 }
 // Resetting comment count
 if(isset($_GET['reset'])) {
     $the_post_id = escape($_GET['reset']);
     $query = "UPDATE posts SET post_views_count = 0 WHERE post_id = " . mysqli_real_escape_string($connection, $_GET['reset']) . " " ;
     $reset_query = mysqli_query($connection, $query);
-    redirect("posts.php?source=user_posts");
+    redirect("posts.php");
 }
 ?>
 

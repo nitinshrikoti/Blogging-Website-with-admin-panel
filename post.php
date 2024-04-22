@@ -100,7 +100,7 @@
 
                             ?>
                             <div class="row">
-                                <p class="pull-right likes">LIKE: <?php getPostLikes($the_post_id); ?></p>
+                                <p class="pull-right likes like">LIKE: <?php getPostLikes($the_post_id); ?></p>
                             </div>
                         <?php } ?> <!-- while end --> 
                     

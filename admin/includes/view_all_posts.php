@@ -125,7 +125,7 @@ if(isset($_POST['checkBoxArray'])) {
                 
                 echo "<td> $post_date </td>";
                 echo "<td> <a class='btn btn-primary' href='../post.php?p_id={$post_id}'>View Post</a> </td>";
-                echo "<td> <a class='btn btn-info' href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a> </td>";
+                echo "<td> <a class='btn btn-info'  href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a> </td>";
 
             ?>
             <form action="" method="post">

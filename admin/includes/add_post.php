@@ -62,9 +62,13 @@ if(isset($_POST['create_post'])) {
     <div class="form-group">
         <label for="post_status">Post Status</label>
         <select name="post_status" id="">
-            <option value="draft">Select Status</option>
-            <option value="draft">Draft</option>
-            <option value="published">Publish</option>
+            <?php if(is_admin()): ?>
+                <option value="draft">Select Status</option>
+                <option value="draft">Draft</option>
+                <option value="published">Publish</option>
+            <?php else: ?>
+                <option value="draft">Draft</option>
+            <?php endif; ?>
         </select>
     </div>
     <!-- <div class="form-group">

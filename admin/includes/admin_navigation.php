@@ -39,6 +39,9 @@
                 <ul id="posts_dropdown" class="collapse">
                     <li> <a href="./posts.php?source=user_posts">View All Posts</a> </li>
                     <li> <a href="posts.php?source=add_post">Add Posts</a> </li>
+                    <?php if(is_admin()):  ?>
+                        <li> <a href="posts.php?source=new_posts">Review New posts</a> </li>
+                    <?php endif; ?>
                 </ul>
             </li>
             <li> <a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a> </li>
