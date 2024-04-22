@@ -12,8 +12,8 @@ if(ifItIsMethod('post')) {
 ?>
 
 <!-- Blog Search Well -->
-<div class="col-md-4">
-    <div class="well">
+<div class="col-md-4 ">
+    <div class="bgcolor well">
         <h4>Blog Search</h4>
         <form action="search.php" method="post">
             <div class="input-group">
@@ -29,7 +29,7 @@ if(ifItIsMethod('post')) {
     </div>
 
     <!-- Login -->
-    <div class="well">
+    <div class="bgcolor well">
         <?php if(isset($_SESSION['user_role'])): ?>
             <h4>Logged in as <?php echo $_SESSION['username'] ?></h4>
             <a href="/cms/includes/logout.php" class="btn btn-primary">Logout</a>
@@ -52,23 +52,46 @@ if(ifItIsMethod('post')) {
     </div>
 
     <!-- Blog Categories Well -->
-    <div class="well">
+    <div class="bgcolor well">
     <?php
-    $query = "SELECT * FROM categories";
-    $select_categories_sidebar = mysqli_query($connection, $query);
+    
     ?>
         <h4>Blog Categories</h4>
         <div class="row">
             <div class="col-lg-12">
+            <div style="height: 200px; overflow-y: auto;">
                 <ul class="list-unstyled">
                     <?php
+                    $query = "SELECT * FROM categories";
+                    $select_categories_sidebar = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($select_categories_sidebar)) {
                         $cat_id = $row['cat_id'];
                         $cat_title = $row['cat_title'];
-                        echo "<li> <a href='category.php?category=$cat_id'> {$cat_title} </a> </li>";
+                        echo "<li> <a href='/cms/category.php?category=$cat_id'> {$cat_title} </a> </li>";
                     }
                     ?>
                 </ul>
+            </div>
+            </div>
+            
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="bgcolor well">
+    <?php
+    
+    ?>
+        <h4>About Us</h4>
+        <div class="row">
+            <div class="col-lg-12">
+                <p style="font-family: cursive; font-size: 11px;">
+                    Welcome to E:{LOG}, where voices converge and stories unfold. We are a vibrant community of writers, thinkers, and storytellers, passionate about sharing diverse perspectives and ideas through the art of blogging.<br><br>
+
+                    At E:{LOG}, we believe in the power of words to inspire, inform, and connect. Whether you're a seasoned writer or a budding wordsmith, our platform provides a space for you to express yourself, engage with others, and contribute to meaningful conversations.<br><br>
+
+                    Join us on a journey of exploration, where every blog post is an opportunity to spark dialogue, foster understanding, and ignite change. Together, let's build a platform that celebrates creativity, embraces diversity, and empowers voices from all walks of life.<br><br>
+
+                    Welcome to the community. Welcome to E:{LOG}.</p>
             </div>
             
         </div>

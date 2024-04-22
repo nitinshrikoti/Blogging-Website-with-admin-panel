@@ -46,14 +46,17 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Category Title</th>
-                                        <th>Delete</th>
-                                        <th>Edit</th>
+                                        <?php if(is_admin()): ?>
+                                            <th>Delete</th>
+                                            <th>Edit</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Find all categories -->
                                     <?php findAllCategories(); ?>
-
+                                    
+                                    
                                     <!-- Delete query -->
                                     <?php delete_categories() ?>
                                 </tbody>

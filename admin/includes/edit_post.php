@@ -25,6 +25,7 @@ while($row = mysqli_fetch_assoc($select_posts_by_id)) {
 if(isset($_POST['update_post'])) {
     $post_title         = $_POST['post_title'];
     $post_user          = $_POST['post_user'];
+    // $user_id            = get_user_id();
     $post_category_id   = $_POST['post_category'];
     $post_status        = $_POST['post_status'];
     $post_image         = $_FILES['image']['name'];
@@ -45,7 +46,8 @@ if(isset($_POST['update_post'])) {
     // Update Query
     $query = "UPDATE posts SET ";
     $query .= "post_title       = '{$post_title}', ";
-    $query .= "post_category_id = '{$post_category_id}', ";  
+    $query .= "post_category_id = '{$post_category_id}', ";
+    // $query .= "user_id          = '{$user_id}', ";
     $query .= "post_date        = now(), ";
     $query .= "post_user        = '{$post_user}', ";
     $query .= "post_status      = '{$post_status}', ";
@@ -57,7 +59,11 @@ if(isset($_POST['update_post'])) {
     $update_post = mysqli_query($connection, $query);
     confirmQuery($update_post);
     
-    echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id={$the_post_id}'> View Post </a> OR <a href='posts.php'>Edit More Post</a></p>";
+    if(is_admin()) {
+        echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id={$the_post_id}'> View Post </a> OR <a href='posts.php'>Edit More Post</a></p>";
+    } else {
+        echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id={$the_post_id}'> View Post </a> OR <a href='posts.php?source=user_posts'>Edit More Post</a></p>";
+    }
 }
 
 ?>
@@ -95,7 +101,7 @@ if(isset($_POST['update_post'])) {
             <?php 
             if($post_status == 'published') {
                 echo "<option value='draft'>Draft</option>";
-            } else {
+            } else if(is_admin()) {
                 echo "<option value='published'>Publish</option>";
             }
             ?>
@@ -110,12 +116,6 @@ if(isset($_POST['update_post'])) {
             $select_users = mysqli_query($connection, $query);
 
             confirmQuery($select_users);
-
-            while($row = mysqli_fetch_assoc($select_users)) {
-                $user_id = $row['user_id'];
-                $username = $row['username'];
-                echo "<option value='{$username}'>{$username}</option>";
-            }
             ?>
         </select>
     </div>

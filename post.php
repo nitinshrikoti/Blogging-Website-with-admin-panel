@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row">
             <!-- Blog Entries Column -->
-            <div class="col-md-8">
+            <div class="col-md-8 bgcolor">
 
                 <?php
                 if(isset($_GET['p_id'])) {
@@ -75,7 +75,7 @@
                                 <?php echo $post_title ?>
                             </h2>
                             <p class="lead">
-                                by <a href="author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $the_post_id; ?>"><?php echo $post_author ?></a>
+                                by <a href="/cms/author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $the_post_id; ?>"><?php echo $post_author ?></a>
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?></p>
                             <hr>
@@ -100,7 +100,7 @@
 
                             ?>
                             <div class="row">
-                                <p class="pull-right likes">LIKE: <?php getPostLikes($the_post_id); ?></p>
+                                <p class="pull-right likes like">LIKE: <?php getPostLikes($the_post_id); ?></p>
                             </div>
                         <?php } ?> <!-- while end --> 
                     
@@ -119,13 +119,11 @@
                                 if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content) ) {
         
                                     $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                                    $query .= "VALUES ($the_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now() ) ";
+                                    $query .= "VALUES($the_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now() ) ";
                     
                                     $create_comment_query = mysqli_query($connection, $query);
-                                    if(!$create_comment_query) {
-                                        die('Query Failed' . mysqli_error($connection));
-                                    }
-                                    header("Location: post.php?p_id=$the_post_id");
+                                    confirmQuery($create_comment_query);
+                                    redirect("/cms/post.php?p_id=$the_post_id");
                                 } else {
                                     echo "<script>alert('Fields cannot be empty.')</script>";
                                 }
@@ -178,7 +176,7 @@
                 <?php   }
                     } 
                 } else {
-                    redirect("index.php");
+                    redirect("/cms/index.php");
                 }
                 ?>  <!-- while loop end -->
 

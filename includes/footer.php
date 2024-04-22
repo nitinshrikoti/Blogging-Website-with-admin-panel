@@ -2,7 +2,7 @@
         <footer>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center">Copyright &copy; BOB-LOG</p>
+                    <p class="text-center">Copyright &copy; E-LOG</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

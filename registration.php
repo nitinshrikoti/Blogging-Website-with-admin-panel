@@ -50,12 +50,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- Page Content -->
     <div class="container">
     
-        <section id="login">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-6 col-xs-offset-3">
-                        <div class="form-wrap">
-                        <h1>Register</h1>
+        <section id="login" >
+            <div class="container row" style="padding: 60px 0; ">
+                <!-- <div class="row"> -->
+                    <div class="col-xs-4 col-xs-offset-4 ">
+                        <div class="form-wrap panel panel-default bgcolor" style="padding: 20px 30px 40px 30px;">
+                        <h1 style="text-align: center; margin-bottom: 24px;">Register</h1>
                             <form role="form" action="registration.php" method="post" id="registration-form" autocomplete="off">
                                 
                                 <div class="form-group">
@@ -81,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                         
                         </div>
                     </div> <!-- /.col-xs-12 -->
-                </div> <!-- /.row -->
+                <!-- </div> /.row -->
             </div> <!-- /.container -->
         </section>
 

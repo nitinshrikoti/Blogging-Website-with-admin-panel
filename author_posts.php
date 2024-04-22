@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <!-- Blog Entries Column -->
-            <div class="col-md-8">
+            <div class="col-md-8 bgcolor">
 
                 <?php
                 if(isset($_GET['p_id'])) {
@@ -25,7 +25,7 @@
                 ?>    
                     <!-- First Blog Post -->
                     <h2>
-                        <a href="#"><?php echo $post_title; ?></a>
+                        <a href="post/<?php echo $the_post_id; ?>"><?php echo $post_title; ?></a>
                     </h2>
                     <p class="lead">
                         Posts by <?php echo $post_author; ?>
@@ -35,7 +35,7 @@
                     <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
                     <hr>
                     <p><?php echo $post_content ?></p>
-                    <hr>
+                    <hr style="border-top: 2px solid #31363F;">
 
                 <?php } ?>  
                 <!-- while loop end -->
@@ -73,6 +73,6 @@
             <?php include "includes/sidebar.php"; ?>
         </div>
         <!-- /.row -->
-        <hr>
+        <hr style="border-top: 1px solid #31363F;">
 
 <?php include "includes/footer.php"; ?>

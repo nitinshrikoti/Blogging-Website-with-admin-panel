@@ -36,6 +36,11 @@ function get_user_name() {
         return $_SESSION['username'];
     }
 }
+function get_user_id() {
+    if(isset($_SESSION['user_id'])) {
+        return $_SESSION['user_id'];
+    }
+}
 
 // ========== General End ========== //
 
@@ -46,6 +51,18 @@ function is_admin() {
         $result = query("SELECT user_role FROM users WHERE user_id = " . $_SESSION['user_id'] . " ");
         $row = fetchRecords($result);
         if($row['user_role'] == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
+function is_subscriber() {
+    if(isLoggedIn()) {
+        $result = query("SELECT user_role FROM users WHERE user_id = " . $_SESSION['user_id'] . " ");
+        $row = fetchRecords($result);
+        if($row['user_role'] == 'subscriber') {
             return true;
         } else {
             return false;
@@ -66,7 +83,8 @@ function get_all_posts_user_comments() {
 }
 
 function get_all_user_categories() {
-    return query("SELECT * FROM categories WHERE user_id=" . loggedInUserId() . " ");
+    // return query("SELECT * FROM categories WHERE user_id=" . loggedInUserId() . " ");
+    return query("SELECT * FROM categories ");
 }
 
 function checkStatus($table, $column, $status) {
@@ -210,8 +228,10 @@ function findAllCategories() {
         echo "<tr>";
         echo "<td>{$cat_id}</td>";
         echo "<td>{$cat_title}</td>";
-        echo "<td> <a href='categories.php?delete={$cat_id}'>Delete</a> </td>";
-        echo "<td> <a href='categories.php?edit={$cat_id}'>Edit</a> </td>";
+        if(is_admin()) {
+            echo "<td> <a href='categories.php?delete={$cat_id}'>Delete</a> </td>";
+            echo "<td> <a href='categories.php?edit={$cat_id}'>Edit</a> </td>";
+        }
         echo "</tr>";
     }
 }

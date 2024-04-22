@@ -15,8 +15,7 @@
     </thread>
     <tbody>
     <?php
-    $query = "SELECT * FROM comments";
-    $select_comments = mysqli_query($connection, $query);
+    $select_comments = get_all_posts_user_comments();
     while($row = mysqli_fetch_assoc($select_comments)) {
         $comment_id             = $row['comment_id'];
         $comment_post_id        = $row['comment_post_id'];
@@ -42,9 +41,9 @@
 
             echo "<td> $comment_date </td>";
             
-            echo "<td> <a href='comments.php?approve=$comment_id'>Approve</a> </td>";
-            echo "<td> <a href='comments.php?unapprove=$comment_id'>Unapprove</a> </td>"; 
-            echo "<td> <a href='comments.php?delete=$comment_id'>Delete</a> </td>"; 
+            echo "<td> <a href='comments.php?source=user_comments&approve=$comment_id'>Approve</a> </td>";
+            echo "<td> <a href='comments.php?source=user_comments&unapprove=$comment_id'>Unapprove</a> </td>"; 
+            echo "<td> <a href='comments.php?source=user_comments&delete=$comment_id'>Delete</a> </td>"; 
             echo "</tr>";
     }
     ?>
@@ -54,7 +53,7 @@
         $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_id = $the_comment_id";
         $approve_comment_query = mysqli_query($connection, $query);
         // Relodes the page
-        header("Location: comments.php");
+        header("Location: comments.php?source=user_comments");
     }
 
     if(isset($_GET['unapprove'])) {
@@ -62,7 +61,7 @@
         $query = "UPDATE comments SET comment_status = 'unapproved' WHERE comment_id = $the_comment_id";
         $unapprove_comment_query = mysqli_query($connection, $query);
         // Relodes the page
-        header("Location: comments.php");
+        header("Location: comments.php?source=user_comments");
     }
     
     if(isset($_GET['delete'])) {
@@ -70,7 +69,7 @@
         $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id} ";
         $delete_query = mysqli_query($connection, $query);
         // Relodes the page
-        header("Location: comments.php");
+        header("Location: comments.php?source=user_comments");
     }
     ?>
     </tbody>

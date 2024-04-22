@@ -21,10 +21,10 @@ if(ifItIsMethod('post')) {
 
 	<div class="form-gap"></div>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="panel panel-default">
-					<div class="panel-body">
+		<div class="row" style="padding: 62px 0;">
+			<div class="col-md-4 col-md-offset-4 ">
+				<div class="panel panel-default bgcolor">
+					<div class="panel-body" style="padding: 33px 17px;">
 						<div class="text-center">
 
 

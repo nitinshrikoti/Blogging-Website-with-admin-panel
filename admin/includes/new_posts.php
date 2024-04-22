@@ -76,7 +76,7 @@ if(isset($_POST['checkBoxArray'])) {
                 <td>Comments</td>
                 <td>Date</td>
                 <td>View Post</td>
-                <td>Edit</td>
+                <!-- <td>Edit</td> -->
                 <td>Delete</td>
                 <td>Post View Count</td>
             </tr>
@@ -85,7 +85,8 @@ if(isset($_POST['checkBoxArray'])) {
         
         <?php
         
-        $select_posts = query("SELECT * FROM posts ORDER BY post_id DESC ");
+        // $select_posts = query("SELECT * FROM posts ORDER BY post_id DESC ");
+        $select_posts = query("SELECT * FROM posts WHERE post_status='draft' ");
         while($row = mysqli_fetch_assoc($select_posts)) {
             $post_id            = $row['post_id'];
             $post_title         = $row['post_title'];
@@ -125,7 +126,7 @@ if(isset($_POST['checkBoxArray'])) {
                 
                 echo "<td> $post_date </td>";
                 echo "<td> <a class='btn btn-primary' href='../post.php?p_id={$post_id}'>View Post</a> </td>";
-                echo "<td> <a class='btn btn-info'  href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a> </td>";
+                // echo "<td> <a class='btn btn-info' href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a> </td>";
 
             ?>
             <form action="" method="post">
@@ -151,7 +152,7 @@ if(isset($_POST['delete'])) {
             $the_post_id = escape($_POST['post_id']);
             $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
             $delete_query = mysqli_query($connection, $query);
-            redirect("posts.php");
+            redirect("posts.php?source=new_posts");
         }
     }
 }
