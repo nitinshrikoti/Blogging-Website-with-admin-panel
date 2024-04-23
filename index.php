@@ -11,7 +11,7 @@
             <div class="col-md-8 bgcolor">
                     <!-- Pagination -->
                     <?php  
-                    $per_page = 2;
+                    $per_page = 3;
                     if(isset($_GET['page'])) {
                         $page = $_GET['page'];
                     } else {
@@ -24,7 +24,7 @@
                     }
     
                     // Displaying posts based on whether loged in as admin or not
-                    if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    if(is_admin() ) {
                         $post_query_count = "SELECT * from posts ";
                     } else {
                         $post_query_count = "SELECT * from posts WHERE post_status='published' ";
@@ -41,7 +41,13 @@
                         ?>
     
                         <?php
-                        $query = "SELECT * from posts ORDER BY post_id DESC LIMIT $page_1, $per_page ";
+                        if(is_admin() ) {
+                            $query = "SELECT * from posts ORDER BY post_id DESC LIMIT $page_1, $per_page ";
+                        } else  {
+                            $query = "SELECT * from posts WHERE post_status='published' ORDER BY post_id DESC LIMIT $page_1, $per_page ";
+
+                        }
+                        
                         $select_all_posts_query = mysqli_query($connection, $query);
     
                         while($row = mysqli_fetch_assoc($select_all_posts_query)) {

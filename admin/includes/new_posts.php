@@ -86,7 +86,7 @@ if(isset($_POST['checkBoxArray'])) {
         <?php
         
         // $select_posts = query("SELECT * FROM posts ORDER BY post_id DESC ");
-        $select_posts = query("SELECT * FROM posts WHERE post_status='draft' ");
+        $select_posts = query("SELECT * FROM posts WHERE post_status='draft' ORDER BY post_id DESC");
         while($row = mysqli_fetch_assoc($select_posts)) {
             $post_id            = $row['post_id'];
             $post_title         = $row['post_title'];

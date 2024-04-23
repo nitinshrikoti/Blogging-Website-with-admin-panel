@@ -1,16 +1,16 @@
 <?php  include "includes/header.php"; ?>
 
 <?php
-// Sending mail
-if(isset($_POST['submit'])) {
-    $to         = "shrikotishri1@gmail.com";
-    $subject    = wordwrap($_POST['subject'], 70);
-    $body       = $_POST['body'];
-    $header     = "From: " . $_POST['email'];
+// // Sending mail
+// if(isset($_POST['submit'])) {
+//     $to         = "shrikotishri1@gmail.com";
+//     $subject    = wordwrap($_POST['subject'], 70);
+//     $body       = $_POST['body'];
+//     $header     = "From: " . $_POST['email'];
     
-    // send email
-    mail($to, $subject, $body, $header);
-}
+//     // send email
+//     mail($to, $subject, $body, $header);
+// }
 
 ?>
 
@@ -26,7 +26,8 @@ if(isset($_POST['submit'])) {
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-wrap">
                         <h1>Contact</h1>
-                            <form role="form" action="" method="post" id="login-form" autocomplete="off">
+                            <!-- <form role="form" action="" method="post" id="login-form" autocomplete="off"> -->
+                            <form action="mailto:shrikotishri1@gmail.comx" method="post" enctype="text/plain">
                                 
                                 <div class="form-group">
                                     <label for="email" class="sr-only">Email</label>
