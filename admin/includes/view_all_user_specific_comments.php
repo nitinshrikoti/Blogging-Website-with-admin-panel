@@ -41,9 +41,9 @@
 
             echo "<td> $comment_date </td>";
             
-            echo "<td> <a href='comments.php?source=user_comments&approve=$comment_id'>Approve</a> </td>";
-            echo "<td> <a href='comments.php?source=user_comments&unapprove=$comment_id'>Unapprove</a> </td>"; 
-            echo "<td> <a href='comments.php?source=user_comments&delete=$comment_id'>Delete</a> </td>"; 
+            echo "<td> <a class='btn btn-primary' href='comments.php?source=user_comments&approve=$comment_id'>Approve</a> </td>";
+            echo "<td> <a class='btn btn-primary' href='comments.php?source=user_comments&unapprove=$comment_id'>Unapprove</a> </td>"; 
+            echo "<td> <a class='btn btn-danger' href='comments.php?source=user_comments&delete=$comment_id'>Delete</a> </td>"; 
             echo "</tr>";
     }
     ?>

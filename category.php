@@ -15,9 +15,9 @@
 
                     // Displaying posts based on whether loged in as admin or not
                     if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
-                        $query = "SELECT * from posts WHERE post_category_id=$post_category_id  ";
+                        $query = "SELECT * from posts WHERE post_category_id=$post_category_id ORDER BY post_id DESC";
                     } else {
-                        $query = "SELECT * from posts WHERE post_category_id=$post_category_id AND post_status='published' ";
+                        $query = "SELECT * from posts WHERE post_category_id=$post_category_id AND post_status='published' ORDER BY post_id DESC";
                     }
 
                     $select_all_posts_query = mysqli_query($connection, $query);

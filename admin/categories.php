@@ -11,9 +11,18 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Welcome to Admin
-                            <small><?php echo $_SESSION['username']; ?></small>
+                    <h1 class="page-header">
+                            Welcome <?php echo strtoupper(get_user_name()); ?>                           
+                            <!-- <small><?php echo strtoupper(get_user_name()); ?></small> -->
+                            <small>
+                                <br>
+                                <?php if(is_admin()) {
+                                    echo "User Role: Admin";
+                                } elseif(is_subscriber()) {
+                                    echo "User Role: Subscriber";
+                                }
+                                ?>
+                            </small>
                         </h1>
 
                         <div class="col-xs-6">

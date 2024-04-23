@@ -77,14 +77,13 @@ if(ifItIsMethod('post')) {
         </div>
         <!-- /.row -->
     </div>
+
+    <!-- About Us -->
     <div class="bgcolor well">
-    <?php
-    
-    ?>
         <h4>About Us</h4>
         <div class="row">
             <div class="col-lg-12">
-                <p style="font-family: cursive; font-size: 11px;">
+                <p style="font-family: cursive; font-size: 13px;">
                     Welcome to E:{LOG}, where voices converge and stories unfold. We are a vibrant community of writers, thinkers, and storytellers, passionate about sharing diverse perspectives and ideas through the art of blogging.<br><br>
 
                     At E:{LOG}, we believe in the power of words to inspire, inform, and connect. Whether you're a seasoned writer or a budding wordsmith, our platform provides a space for you to express yourself, engage with others, and contribute to meaningful conversations.<br><br>
@@ -93,6 +92,15 @@ if(ifItIsMethod('post')) {
 
                     Welcome to the community. Welcome to E:{LOG}.</p>
             </div>
+            
+        </div>
+        <!-- /.row -->
+    </div>
+
+    <!-- Contact Us -->
+    <div class="bgcolor well">
+        <h4>Any Queries? <br><vr> 
+            <a style=" font-size: 30px;" href="../cms/contact.php">Contact Us</a></h4>
             
         </div>
         <!-- /.row -->
